@@ -244,18 +244,17 @@ export default function Home() {
 
 
 
-  const handlePaste = (event) => {
-    const clipboardItems = event.clipboardData.items;
+const handlePaste = (event) => {
+  const clipboardItems = event.clipboardData.items;
 
-    for (let i = 0; i < clipboardItems.length; i++) {
-      const item = clipboardItems[i];
-      if (item.kind === 'file' && item.type.includes('image')) {
-        const file = item.getAsFile();
-        setSelectedFiles([...selectedFiles, file]);
-        break; // 只处理第一个文件
-      }
+  for (let i = 0; i < clipboardItems.length; i++) {
+    const item = clipboardItems[i];
+    if (item.kind === 'file') { // 取消图片类型限制
+      const file = item.getAsFile();
+      setSelectedFiles(prev => [...prev, file]);
     }
-  };
+  }
+};
 
   const handleDrop = (event) => {
     event.preventDefault();
